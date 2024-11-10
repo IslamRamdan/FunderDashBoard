@@ -16,10 +16,11 @@ class WalletController extends Controller
         $user = auth()->user();
         $receipts = $user->receipts;
         $receipt_not_rejected = $receipts->where('status', '!=', 'rejected');
+        $receipt_accepted = $receipts->where('status', 'accepted');
 
         // my investment
         $investment = 0;
-        foreach ($receipt_not_rejected as $receipt) {
+        foreach ($receipt_accepted as $receipt) {
             $sheres_count = $receipt->count_sheres;
             $property = Property::find($receipt->property_id);
             $receipt_price = $property->property_price * $sheres_count;
