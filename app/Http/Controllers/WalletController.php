@@ -17,6 +17,14 @@ class WalletController extends Controller
         $receipts = $user->receipts;
         $receipt_not_rejected = $receipts->where('status', '!=', 'rejected');
 
+        //number of shares
+        $shares_funder = Funder::where(['user_id'=> $user_id,'status'=>'funder'])->get();
+        
+
+
+
+        
+
         // my investment
         $investment = 0;
         foreach ($receipt_not_rejected as $receipt) {
@@ -71,6 +79,7 @@ class WalletController extends Controller
 
         return response()->json([
             'receipts' => $receipts->count(),
+            'number_of_shares'=> count($shares_funder),
             'my_investments' => $investment,
             'deposit' => $deposit,
             'number_of_properties' => count($properties),
