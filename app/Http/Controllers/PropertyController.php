@@ -57,6 +57,7 @@ class PropertyController extends Controller
             } elseif (!$favorite) {
                 $property->if_favorite = 'false';
             }
+            $share_price = $property->property_price_total / $property->funder_count; 
         }
 
         return response()->json([
